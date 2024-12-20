@@ -22,7 +22,7 @@ const connectDB = async () => {
             console.log('Mongoose disconnected from MongoDB');
         });
 
-    } catch (error) {
+    } catch (error) { 
         console.error('MongoDB connection error:', error);
         process.exit(1);
     }
