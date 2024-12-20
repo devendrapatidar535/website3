@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation Error</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --error-color: #dc3545;
+            --error-light: #f8d7da;
+            --error-border: #f5c6cb;
+            --primary-color: #007bff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .error-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .error-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--error-color);
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .error-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-list {
+            background-color: var(--error-light);
+            border: 1px solid var(--error-border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .error-item {
+            color: var(--error-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: start;
+            gap: 0.5rem;
+        }
+
+        .error-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .error-item i {
+            margin-top: 4px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            .error-container {
+                padding: 1.5rem;
+            }
+
+            .error-icon {
+                font-size: 3rem;
+            }
+
+            .error-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-header">
+            <i class="fas fa-exclamation-circle error-icon"></i>
+            <h1 class="error-title">Validation Error</h1>
+            <p>Please fix the following issues:</p>
+        </div>
+
+        <div class="error-list">
+            <% if (Array.isArray(errors)) { %>
+                <% errors.forEach(error => { %>
+                    <div class="error-item">
+                        <i class="fas fa-times-circle"></i>
+                        <span><%= error.message %></span>
+                    </div>
+                <% }); %>
+            <% } else if (typeof errors === 'object') { %>
+                <% Object.entries(errors).forEach(([field, error]) => { %>
+                    <div class="error-item">
+                        <i class="fas fa-times-circle"></i>
+                        <span><%= error.message || error %></span>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="error-item">
+                    <i class="fas fa-times-circle"></i>
+                    <span><%= errors %></span>
+                </div>
+            <% } %>
+        </div>
+
+        <a href="/signup" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Signup
+        </a>
+    </div>
+</body>
+</html>
